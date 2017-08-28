@@ -2,7 +2,6 @@
 title: 个人简介
 date: 2017-08-27 20:17:53
 tags: 
-password: kevin
 ---
 
 ## 教育经历

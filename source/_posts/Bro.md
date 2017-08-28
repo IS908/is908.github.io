@@ -7,8 +7,6 @@ categories:
     - 网络安全
 ---
 
-# 编写Bro脚本
-
 - 本文英文原版链接为：https://www.bro.org/sphinx/scripting/index.html#understanding-bro-scripts ，仅供参考。
 
 ## Understanding Bro Scripts
