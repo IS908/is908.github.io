@@ -8,6 +8,7 @@ categories:
 ---
 
 - 引言：
+
 最近准备校招，开始重拾算法，开启leetcode刷题之旅。刷到#60 Permutation Sequence 一题，憋了半天，开始Google，于是发现一个新奇的算法——康托编码。
 
 ## 康托展开：全排列到一个自然数的双射
