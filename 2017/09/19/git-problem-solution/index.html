@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="未来不迎，当事不杂，过往不恋！">
+    <meta name="author" content="Kevin">
+    
+    <title>
+        
+            Git的分支合并时非同源的几种解决方案分析 |
+        
+        瓜牛&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"is908.github.io","root":"/","language":"zh-Hans","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":false},"style":{"primary_color":"#0066CC","avatar":"/images/kevin.jpg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                瓜牛&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Git的分支合并时非同源的几种解决方案分析</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/kevin.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Kevin</span>
+                        
+                            <span class="author-label">Lv2</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2017-09-19 09:15:18</span>
+        <span class="mobile">2017-09-19 09:15</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E7%BB%8F%E9%AA%8C%E7%A7%AF%E7%B4%AF/">经验积累</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/git/">git</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.2k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>4 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <blockquote>
+<p>刚毕业入职来到公司，刚好赶上版本控制SVN转Git。于是，趁着这个时机，深入了解一下Git。当然在切换使用过程中也才过许多坑，在此进行一下经验总结，以使后来者少走弯路。</p>
+</blockquote>
+<ul>
+<li>首先，介绍一下来到公司时面临的现状。由于公司是做的银行系统，需要较高的保密性，故开发在局域网内进行，应用coding.net等的在线git仓库不可行，需要到客户银行进行现场开发及公司版本的开发，故存在现场和基地两个地方的同时开发。其中，现场主要是针对行方用户测试的缺陷修改以及外围系统（支付系统、手机银行等近60个外围系统）的接入联调等；基地主要是新功能新需求的开发等。因此，需要定期将基地开发的新功能合并到现场并进行现场测试。</li>
+</ul>
+<span id="more"></span>
+
+<ul>
+<li>接下来，在我们的第一次将基地代码合并到现场时，总共有3个项目源码，其中最大的一个项目遇到了如下问题：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal: refusing to merge unrelated histories</span><br></pre></td></tr></table></figure>
+
+<p>也就是说两部分代码是非同源的。经了解最初将基地代码部署到现场时，直接将基地的.git文件夹删除，作为一个新的没有提交历史的项目推送到了现场搭建的Git仓库。从而导致了虽然基地与现场最初的代码一致，但是没有相关的提交历史（即没有基于某一个共同的Git版本号做的后续开发）。使得基于Git的日志的合并无法进行。</p>
+<h4 id="针对这个问题，我们进行了如下几种尝试："><a href="#针对这个问题，我们进行了如下几种尝试：" class="headerlink" title="针对这个问题，我们进行了如下几种尝试："></a>针对这个问题，我们进行了如下几种尝试：</h4><h5 id="Git的强制合并"><a href="#Git的强制合并" class="headerlink" title="Git的强制合并"></a>Git的强制合并</h5><p>进行两个分支合并时添加 –allow-unrelated-histories 参数，进行强制的diff合并。<br>经尝试，发现项目有1680个文件删除，5884个文件新增，5117个文件修改。<br>这就意味着我们要解决5117个文件的冲突。[:sad]</p>
+<p>此方案不可行，pass掉。</p>
+<h5 id="Git的打补丁的方式"><a href="#Git的打补丁的方式" class="headerlink" title="Git的打补丁的方式"></a>Git的打补丁的方式</h5><p>通过将基地拿到现场最初版本到本次合并的时间段内的基地的提交通过发布补丁包的方式，再将补丁包应用到现场的代码中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">git -c diff.mnemonicprefix=<span class="literal">false</span> -c core.quotepath=<span class="literal">false</span> -c credential.helper=manager-st format-patch --stdout -1 6531df71a840ab9540b88f6c85cf50c1b70be0db</span><br><span class="line"></span><br><span class="line">git -c diff.mnemonicprefix=<span class="literal">false</span> -c core.quotepath=<span class="literal">false</span> -c credential.helper=manager-st format-patch --stdout -1 90d424d070170dd6e2257f4b1a877e8c164aad62</span><br><span class="line"></span><br><span class="line">git -c diff.mnemonicprefix=<span class="literal">false</span> -c core.quotepath=<span class="literal">false</span> -c credential.helper=manager-st format-patch --stdout -1 feb2a8ac5788a09ad3a838d5db830c779473092b</span><br><span class="line"></span><br><span class="line">git -c diff.mnemonicprefix=<span class="literal">false</span> -c core.quotepath=<span class="literal">false</span> -c credential.helper=manager-st format-patch --stdout -1 e06a38c3c57c902cf9abf89d125027deb6df142b</span><br><span class="line"></span><br><span class="line">git -c diff.mnemonicprefix=<span class="literal">false</span> -c core.quotepath=<span class="literal">false</span> -c credential.helper=manager-st format-patch --stdout -1 c3e764c806bdbd7a41bf66ccdc583d9b6d8ddc08</span><br><span class="line"></span><br><span class="line">git -c diff.mnemonicprefix=<span class="literal">false</span> -c core.quotepath=<span class="literal">false</span> -c credential.helper=manager-st format-patch --stdout -1 c8ff104b5446e1dd6086aa881ee8f4d997fe359b</span><br><span class="line"></span><br><span class="line">git -c diff.mnemonicprefix=<span class="literal">false</span> -c core.quotepath=<span class="literal">false</span> -c credential.helper=manager-st format-patch --stdout -1 50a8bbd0bf178e4c5ca0b59f49a8e91b70b4bc84</span><br><span class="line"></span><br><span class="line">...... ......</span><br></pre></td></tr></table></figure>
+
+<p>生成完补丁包后，发现补丁包大小为1.67G（感觉要跪），将补丁开始应用到当前项目。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git -c diff.mnemonicprefix=<span class="literal">false</span> -c core.quotepath=<span class="literal">false</span> -c credential.helper=manager-st am -p 1 --3way \patch.diff</span><br></pre></td></tr></table></figure>
+<p>由于补丁包太大，尝试应用补丁不可行（工作量太大，相当于rebase操作总共322步，而且每步都要解决不同量[不可预估]的冲突）！</p>
+<h5 id="通过抽取增量的方式"><a href="#通过抽取增量的方式" class="headerlink" title="通过抽取增量的方式"></a>通过抽取增量的方式</h5><p>开始尝试进行增量的抽取，将基地拿到现场最初版本到本次合并的时间段内的基地的增量抽取出来。即，只基地两个时间点的代码diff，获取基地这段时间的文件变更列表，现场仅考虑基地有变更的文件。再通过对比工具（如：BeyondCompare）将增量列表中的文件对比合并到现场的代码中。<br>通过抽取增量后，发现有7个文件删除、2173个文件已添加、274个文件已修改。<br>这意味着我们要比较解决的冲突文件为274个文件，这比方案一要解决的冲突降低了一个数量级。</p>
+<blockquote>
+<p>经权衡后，我们选择了抽取增量的方式进行合并。</p>
+</blockquote>
+<p>其余的2个较小的项目，由于在最初到现场时保留了.git文件夹（也是奇怪，为何不是都保留或都不保留）。可以进行Git自动合并。要解决的冲突量都在30个文件以内，而且冲突文件大多数为公共文件、注册文件等。故工作量时在可接受范围内。</p>
+<blockquote>
+<p>经验教训，将源代码部署到一个新的环境进行两地各自局域网内同时开发时，需要合并代码的一定要保留.git文件夹，保留之前的提交记录、版本号等。</p>
+</blockquote>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：Git的分支合并时非同源的几种解决方案分析</li>
+        <li>Post author：Kevin</li>
+        <li>Create time：2017-09-19 09:15:18</li>
+        <li>
+            Post link：https://is908.github.io/2017/09/19/git-problem-solution/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/git/">#git</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2017/10/23/git-learn/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">面试中可能问到的Git问题</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2017/09/03/git-sheet/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Git常用命令一览表</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2016</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Kevin</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%92%88%E5%AF%B9%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%8C%E6%88%91%E4%BB%AC%E8%BF%9B%E8%A1%8C%E4%BA%86%E5%A6%82%E4%B8%8B%E5%87%A0%E7%A7%8D%E5%B0%9D%E8%AF%95%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">针对这个问题，我们进行了如下几种尝试：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Git%E7%9A%84%E5%BC%BA%E5%88%B6%E5%90%88%E5%B9%B6"><span class="nav-number">1.1.</span> <span class="nav-text">Git的强制合并</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Git%E7%9A%84%E6%89%93%E8%A1%A5%E4%B8%81%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">Git的打补丁的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%8A%BD%E5%8F%96%E5%A2%9E%E9%87%8F%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">通过抽取增量的方式</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>
