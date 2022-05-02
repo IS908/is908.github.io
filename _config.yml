@@ -72,7 +72,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
+theme: keep
 
 # Extensions
 ## Plugins: http://hexo.io/plugins/
@@ -85,3 +85,12 @@ deploy:
   repo: git@github.com:IS908/is908.github.io.git
   branch: master
   message: Site updated - {{ now('YYYY-MM-DD HH:mm:ss') }}
+
+# Search
+## See: https://github.com/theme-next/hexo-generator-searchdb
+search:
+  path: search.json
+  field: post
+  content: true
+  format: striptags
+  
