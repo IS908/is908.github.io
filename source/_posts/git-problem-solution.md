@@ -2,7 +2,7 @@
 title: Git的分支合并时非同源的几种解决方案分析
 date: 2017-09-19 09:15:18
 tags:
-    - git
+    - Git
 categories:
     - 经验积累
 ---
