@@ -9,7 +9,7 @@
     
     <title>
         
-            个人简介 |
+            热 key 发现与防御 |
         
         Kevin&#39;s Blog
     </title>
@@ -362,77 +362,128 @@ $logo-image-box-width = 46px;
 
                 
                     <div class="fade-in-down-animation">
-    <div class="page-template-container">
-        
-        
-        <div class="page-template-content markdown-body">
-            
-                <h2 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h2><ul>
-<li>北京大学 | 软件与微电子学院 | 软件工程专业 | 硕士 | 2014.09-2017-07</li>
-<li>烟台大学 | 数学与信息科学学院 | 应用数学专业 | 学士 | 2010.09-2014.07</li>
-</ul>
-<h2 id="比赛经历"><a href="#比赛经历" class="headerlink" title="比赛经历"></a>比赛经历</h2><ul>
-<li>阿里天池大数据比赛 | 阿里巴巴中间件性能挑战赛 | 45&#x2F;1946(top 3%) | 入围决赛 | 2016.07</li>
-<li>美国大学生数学建模竞赛（MCM） | Honorable Mention | 2014.03</li>
-<li>全国大学生数学建模竞赛(CUMCM) | 省二等奖 | 2012.09</li>
-</ul>
-<h2 id="个人技能"><a href="#个人技能" class="headerlink" title="个人技能"></a>个人技能</h2><ul>
-<li>编程语言: Go &gt; Java &gt; Python &gt; C</li>
-<li>熟悉 MySQL，Redis 等常用存储底层原理、集群部 署、主从同步等</li>
-<li>了解常见的开源分布式中间件，RPC 框架原理、Kafka 等</li>
-<li>对构建高并发、高性能服务架构有一定的经验</li>
-</ul>
-<h2 id="工作经历"><a href="#工作经历" class="headerlink" title="工作经历"></a>工作经历</h2><ul>
-<li>字节跳动 | 服务端 RD | 2019.09 - 至今</li>
-<li>神州数码融信软件有限公司 | Java开发 | 2017.08 - 2019.08</li>
-</ul>
-<h3 id="项目经历"><a href="#项目经历" class="headerlink" title="项目经历"></a>项目经历</h3><blockquote>
-<p>TikTok 直播业务架构 - Golang （2021.09 - 至今）</p>
-</blockquote>
-<ul>
-<li>榜单中台服务<br>技术标签：配置化接入、海外多活数据一致性检测&amp;报警机制、热 Key 主动发现&amp;主动缓存&amp;主动回源</li>
-<li>白名单中台服务<br>技术标签：SDK 接入、BloomFilter实现、多级缓存</li>
-</ul>
-<blockquote>
-<p>抖音社交业务研发 - Golang&amp;Python（2019.09 - 2021.08）</p>
-</blockquote>
-<ul>
-<li>关系中台服务<br>服务于字节内头条、西瓜视频、抖音&amp;TikTok、火山小视频等各大产品，提供关注、拉黑等关系判断及列表获取，日常峰值超 3500W+QPS<br>技术标签：高并发架构、缓存数据一致性、分库、读写分离等</li>
-<li>关注分组服务<br>支持基于标签用户的系统分组及用户可编辑的自定义分组, 实现关注列表分组与关注 feed 联动, 满足高关注数用户的分类别视频消费</li>
-<li>抖音面对面抖一抖服务<br>基于 <a class="link" target="_blank" rel="noopener" href="https://halfrost.com/go_spatial_search/">GeoHash<i class="fas fa-external-link-alt"></i></a> 实现寻找附近的人，很好的支持了 2021 年五一、端午等拉新裂变活动 <a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/369713040">https://zhuanlan.zhihu.com/p/369713040<i class="fas fa-external-link-alt"></i></a></li>
-</ul>
-<blockquote>
-<p>分布式事务中间件DTF (2018.06 - 2019.08)</p>
-</blockquote>
-<ul>
-<li>对标阿里巴巴&amp;蚂蚁金服开源分布式事务中间件Seata，该事务中间件DTF已开始与国内某top3股份制商业银行离岸业务系统完成对接准备上线；</li>
-<li>提供TCC、XA、FMT三种分布式事务实现；其中FMT事务、XA事务均实现了业务零侵入的分布式事务；<ul>
-<li>FMT事务模式: 基于SQL的拦截、解析实现了业务无侵入的事务，相比 Seata做到了以下几点功能完善及性能优化：</li>
-<li>通过SQL重写优化解决了Seata在数据库读已提交隔离级别下可能存在的数据不一致的隐患；同时扩大了对函数的支持范围；同时支持批量方式执行；</li>
-<li>通过内存计算方式生成后像数据，一次非业务的数据库查询，减轻数据库压力同时降低了事务性能损耗；</li>
-<li>通过异步化注册分支事务增强并发性、自实现序列化极大压缩了UndoLog的体积，进一步降低了分布式事务的性能损耗；</li>
-<li>相比于Seata，DTF将事务的逻辑锁的实现转移到了客户端，减轻了服务端锁管理的压力，同时提供了三种可配置化的逻辑锁方式；</li>
-</ul>
-</li>
-<li>提供了增强的Spring事务管理器，实现了@Transactional同时管理本地事务和分布式事务以及兼容Spring事务传播行为，使得存量系统可迅速接入分布式事务；</li>
-<li>基于数据库实现了服务端集群自动注册与发现，以及相关负载均衡；通过订阅模式实现了服务端集群节点增加或宕机能够及时推送到客户端；基于Netty的NIO通信方式，高并发下性能表现优异。</li>
-</ul>
-<blockquote>
-<p>持续集成版本发布系统 (2017.11 - 2018.02)</p>
-</blockquote>
-<ul>
-<li>2017年10月本人开始负责公司Svn切换Git及Git的推广工作，开发了一套 Git + Jenkins + OMS 的持续集成版本发布系统；</li>
-<li>独立开发了基于Git提交记录自动化增量版本抽取工具，支持规则过滤及相关告警功能；</li>
-<li>针对公司开发人员在项目交付现场的交付流程，制定了配套的Git分支管理流程；</li>
-<li>同时针对个别遗留项目仍使用Svn作为版本管理工具的也配套开发了基于Svn提交记录的自动化增量版本抽取工具，该系统先已在公司各个客户交付现场全面实行。</li>
-</ul>
-<h2 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h2><p>个人学习能力强，热爱技术;有较强的 owner 意识，工作中注重沟通合作，及时反馈;带新人方面有一定的经验</p>
+    <div class="article-content-container">
 
+        <div class="article-title">
+            <span class="title-hover-animation">热 key 发现与防御</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/kevin.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">坤坤</span>
+                        
+                            <span class="author-label">Lv2</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-05-02 22:49:19</span>
+        <span class="mobile">2022-05-02 22:49</span>
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/redis/">redis</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%83%ADkey%E9%98%B2%E5%BE%A1/">热key防御</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>1 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
             
         </div>
-        <div class="page-template-comments">
-            
-        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：热 key 发现与防御</li>
+        <li>Post author：坤坤</li>
+        <li>Create time：2022-05-02 22:49:19</li>
+        <li>
+            Post link：https://is908.github.io/2022/05/02/hot-key-defender/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/redis/">#redis</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%83%ADkey%E9%98%B2%E5%BE%A1/">#热key防御</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/05/02/dtf-outline/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">分布式事务中间件概述</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
     </div>
 </div>
 
@@ -480,6 +531,23 @@ $logo-image-box-width = 46px;
     </div>
 
     
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
 
     <div class="right-bottom-side-tools">
         <div class="side-tools-container">
@@ -525,6 +593,14 @@ $logo-image-box-width = 46px;
 
     </div>
 
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        
+    </div>
+</div>
+        </aside>
     
 
     <div class="image-viewer-container">
@@ -598,6 +674,14 @@ $logo-image-box-width = 46px;
 
 
 <div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
     
 </div>
 
